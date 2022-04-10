@@ -1,15 +1,21 @@
 <template>
-  <index></index>
+  <div class="container-fluid">
+    <Header @resetFormMemo="resetFormMemo"/>
+    <slot></slot>
+    <Footer @resetMemos="resetMemos"/>
+  </div>
 </template>
 
 <script>
-import { db } from './repositories'
+import { db } from '@/repositories'
 import { memoRepository } from "@/repositories/memoRepository";
-import { index } from "@/pages/memos/index"
+import Header from "@/components/layouts/Header"
+import Footer from "@/components/layouts/Footer"
 
 export default {
-  name: 'App',
-  components: {index},
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Base',
+  components: {Footer, Header},
   data() {
     return {
       form: {
@@ -85,7 +91,17 @@ export default {
         left: memo.left
       }
     },
-
+    dragMemo(event, memo) {
+      this.updatePosition(event, memo)
+    },
+    dragendMemo(event, memo) {
+      this.updatePosition(event, memo)
+      this.putMemo(memo)
+    },
+    updatePosition(event, memo) {
+      memo.top = event.pageY - 50
+      memo.left = event.pageX - 50
+    }
   },
   created() {
     memoRepository.all()
