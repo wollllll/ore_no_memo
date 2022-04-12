@@ -13,9 +13,10 @@ export const noteService = {
         top: note.top,
         left: note.left,
       })
-      noteService.getNotes().then((response) => {
-        noteService.store.commit.setNotes(response)
-      })
+      noteService
+        .getNotes()
+        .then((response) => noteService.store.commit.setNotes(response))
+        .catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
     }
@@ -35,9 +36,10 @@ export const noteService = {
     try {
       noteRepository.truncate()
 
-      noteService.getNotes().then((response) => {
-        noteService.store.commit.setNotes(response)
-      })
+      noteService
+        .getNotes()
+        .then((response) => noteService.store.commit.setNotes(response))
+        .catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
     }
