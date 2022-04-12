@@ -32,6 +32,17 @@ export const noteService = {
       alert(exception)
     }
   },
+  delete(note) {
+    try {
+      noteRepository.delete(note.id)
+      noteService
+        .getNotes()
+        .then((response) => noteService.store.commit.setNotes(response))
+        .catch((error) => alert(error))
+    } catch (exception) {
+      alert(exception)
+    }
+  },
   truncate() {
     try {
       noteRepository.truncate()

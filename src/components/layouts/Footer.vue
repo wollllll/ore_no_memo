@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 const notes = ref(noteService.store.getters.notes())
 const truncateNote = () => {
-  if (window.confirm('全て削除します。')) {
+  if (window.confirm('全て削除しますか')) {
     noteService.truncate()
   }
 }

@@ -18,6 +18,12 @@ const updateOrCreateByNote = () => {
   noteService.store.commit.setIsShowModal(false)
   noteService.store.commit.setShowNote(resetShowMemo)
 }
+const deleteNote = () => {
+  if (window.confirm('削除しますか')) {
+    noteService.delete(showNote.value)
+    noteService.store.commit.setIsShowModal(false)
+  }
+}
 
 watchEffect(() => {
   isShowModal.value = store.getters.isShowModal()
@@ -51,6 +57,9 @@ watchEffect(() => {
       </div>
       <div class="modal-footer">
         <template v-if="'id' in showNote">
+          <button @click="deleteNote()" type="button" class="btn btn-danger">
+            削除
+          </button>
           <button
             @click="updateOrCreateByNote()"
             type="button"

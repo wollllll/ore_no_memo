@@ -10,6 +10,9 @@ export const noteRepository = {
   update(id, inputs) {
     db.notes.update(id, inputs)
   },
+  delete(id) {
+    db.notes.delete(id)
+  },
   truncate() {
     db.notes.clear()
   },
