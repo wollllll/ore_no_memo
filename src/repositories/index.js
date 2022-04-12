@@ -1,6 +1,6 @@
-import Dexie from 'dexie';
+import Dexie from 'dexie'
 
-export const db = new Dexie('zatsu_memo');
+export const db = new Dexie('俺のメモ')
 db.version(1).stores({
-    notes: '++id, content, top, left'
-});
+  notes: '++id, content, top, left',
+})

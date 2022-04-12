@@ -1,6 +1,6 @@
-import {store} from '@/store'
-import {noteRepository} from '@/repositories/noteRepository'
-import {computed} from 'vue'
+import { store } from '@/store'
+import { noteRepository } from '@/repositories/noteRepository'
+import { computed } from 'vue'
 
 export const noteService = {
   getNotes() {
@@ -11,9 +11,9 @@ export const noteService = {
       note.id = noteRepository.create({
         content: note.content,
         top: note.top,
-        left: note.left
+        left: note.left,
       })
-      noteService.getNotes().then(response => {
+      noteService.getNotes().then((response) => {
         noteService.store.commit.setNotes(response)
       })
     } catch (exception) {
@@ -25,7 +25,7 @@ export const noteService = {
       noteRepository.update(note.id, {
         content: note.content,
         top: note.top,
-        left: note.left
+        left: note.left,
       })
     } catch (exception) {
       alert(exception)
@@ -35,7 +35,7 @@ export const noteService = {
     try {
       noteRepository.truncate()
 
-      noteService.getNotes().then(response => {
+      noteService.getNotes().then((response) => {
         noteService.store.commit.setNotes(response)
       })
     } catch (exception) {
@@ -52,7 +52,7 @@ export const noteService = {
       },
       showNote() {
         return computed(() => store.getters['note/showNote'])
-      }
+      },
     },
     commit: {
       setIsShowModal(bool) {
@@ -63,7 +63,7 @@ export const noteService = {
       },
       setShowNote(note) {
         store.commit('note/setShowNote', note)
-      }
-    }
-  }
+      },
+    },
+  },
 }

@@ -1,4 +1,4 @@
-import {db} from '@/repositories'
+import { db } from '@/repositories'
 
 export const noteRepository = {
   async get() {
@@ -12,5 +12,5 @@ export const noteRepository = {
   },
   truncate() {
     db.notes.clear()
-  }
+  },
 }

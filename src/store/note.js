@@ -6,13 +6,13 @@ export const note = {
     showNote: {
       content: null,
       top: 0,
-      left: 0
-    }
+      left: 0,
+    },
   },
   getters: {
-    isShowModal: state => state.isShowModal,
-    notes: state => state.notes,
-    showNote: state => state.showNote
+    isShowModal: (state) => state.isShowModal,
+    notes: (state) => state.notes,
+    showNote: (state) => state.showNote,
   },
   mutations: {
     setIsShowModal(state, bool) {
@@ -23,6 +23,6 @@ export const note = {
     },
     setShowNote(state, note) {
       state.showNote = note
-    }
+    },
   },
 }

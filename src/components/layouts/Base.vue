@@ -1,28 +1,28 @@
 <script setup>
-import Header from "@/components/layouts/Header"
-import Footer from "@/components/layouts/Footer"
-import Modal from "@/components/Modal";
+import Header from '@/components/layouts/Header'
+import Footer from '@/components/layouts/Footer'
+import Modal from '@/components/Modal'
 </script>
 
 <template>
-  <div class="container-fluid">
-    <Header/>
+  <div class="base-container">
+    <Header />
     <main>
       <slot></slot>
     </main>
-    <Modal/>
-    <Footer/>
+    <Footer />
+    <Modal />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container-fluid {
+.base-container {
   overflow: hidden;
   position: relative;
   display: flex;
   flex-flow: column;
   height: 100vh;
-  margin: 0;
+  padding: 16px;
 
   main {
     flex: 1;

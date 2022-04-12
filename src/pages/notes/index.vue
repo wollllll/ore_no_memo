@@ -1,7 +1,7 @@
 <script setup>
 import Base from '@/components/layouts/Base'
-import {noteService} from '@/services/noteService'
-import {ref} from 'vue'
+import { noteService } from '@/services/noteService'
+import { ref } from 'vue'
 
 const notes = ref(noteService.store.getters.notes())
 const dragNote = (event, note) => updatePosition(event, note)
@@ -23,16 +23,18 @@ const showModal = (note) => {
   <Base>
     <ul>
       <li
-          class="note card"
-          draggable="true"
-          :key="note.id"
-          v-for="note in notes"
-          :style="{top: `${note.top}px`, left: `${note.left}px`}"
-          @drag="dragNote($event, note)"
-          @dragend="dragendNote($event, note)"
+        class="note card"
+        draggable="true"
+        :key="note.id"
+        v-for="note in notes"
+        :style="{ top: `${note.top}px`, left: `${note.left}px` }"
+        @drag="dragNote($event, note)"
+        @dragend="dragendNote($event, note)"
       >
         <div class="content-box">{{ note.content }}</div>
-        <div @click="showModal(note)" class="icon-box"><i class="bi bi-caret-down-square"></i></div>
+        <div @click="showModal(note)" class="icon-box">
+          <i class="bi bi-caret-down-square"></i>
+        </div>
       </li>
     </ul>
   </Base>
@@ -57,7 +59,7 @@ const showModal = (note) => {
     overflow: hidden;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    white-space: pre
+    white-space: pre;
   }
 
   .icon-box {

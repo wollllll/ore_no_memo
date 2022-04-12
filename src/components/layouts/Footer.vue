@@ -1,6 +1,6 @@
 <script setup>
-import {noteService} from "@/services/noteService"
-import {ref} from 'vue'
+import { noteService } from '@/services/noteService'
+import { ref } from 'vue'
 
 const notes = ref(noteService.store.getters.notes())
 const truncateNote = () => {
@@ -13,7 +13,9 @@ const truncateNote = () => {
 <template>
   <footer class="row">
     <div v-if="notes.length" class="col-4 offset-4 text-center">
-      <button @click="truncateNote" type="button" class="btn btn-danger">全て削除</button>
+      <button @click="truncateNote" type="button" class="btn btn-danger">
+        全て削除
+      </button>
     </div>
   </footer>
 </template>
