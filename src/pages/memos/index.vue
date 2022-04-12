@@ -1,47 +1,72 @@
+<script setup>
+import Base from '@/components/layouts/Base'
+import {noteService} from '@/services/noteService'
+import {ref} from 'vue'
+
+const notes = ref(noteService.store.getters.notes())
+const dragNote = (event, note) => updatePosition(event, note)
+const dragendNote = (event, note) => {
+  updatePosition(event, note)
+  noteService.update(note)
+}
+const updatePosition = (event, note) => {
+  note.top = event.pageY - 50
+  note.left = event.pageX - 50
+}
+const showModal = (note) => {
+  noteService.store.commit.setIsShowModal(true)
+  noteService.store.commit.setShowNote(note)
+}
+</script>
+
 <template>
   <Base>
-    <main>
-      <ul>
-        <li
-            :ref="`memo_${memo.id}`"
-            class="memo card"
-            draggable="true"
-            :key="memo.id"
-            v-for="memo in memos"
-            :style="{top: `${memo.top}px`, left: `${memo.left}px`}"
-            @drag="dragMemo($event, memo)"
-            @dragend="dragendMemo($event, memo)"
-        >
-          <div class="content-box">{{ memo.id }}{{ memo.content }}</div>
-          <div class="icon-box"><i class="bi bi-caret-down-square" data-bs-toggle="modal" data-bs-target="#modal"
-                                   @click="setShowMemo(memo)"></i></div>
-        </li>
-      </ul>
-    </main>
+    <ul>
+      <li
+          class="note card"
+          draggable="true"
+          :key="note.id"
+          v-for="note in notes"
+          :style="{top: `${note.top}px`, left: `${note.left}px`}"
+          @drag="dragNote($event, note)"
+          @dragend="dragendNote($event, note)"
+      >
+        <div class="content-box">{{ note.id }}{{ note.content }}</div>
+        <div @click="showModal(note)" class="icon-box"><i class="bi bi-caret-down-square"></i></div>
+      </li>
+    </ul>
   </Base>
 </template>
 
-<script>
-import Base from "@/components/layouts/Base";
+<style lang="scss" scoped>
+.note {
+  position: absolute;
+  border: 1px solid red;
+  height: 100px;
+  width: 100px;
+  cursor: grab;
 
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'index',
-  components: {
-    Base
-  },
-  methods: {
-    dragMemo(event, memo) {
-      this.updatePosition(event, memo)
-    },
-    dragendMemo(event, memo) {
-      this.updatePosition(event, memo)
-      this.putMemo(memo)
-    },
-    updatePosition(event, memo) {
-      memo.top = event.pageY - 50
-      memo.left = event.pageX - 50
-    }
+  &:active {
+    cursor: grabbing;
+  }
+
+  .content-box {
+    text-align: center;
+    height: 70%;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: pre
+  }
+
+  .icon-box {
+    display: flex;
+    width: 100%;
+    height: 30%;
+    flex-flow: wrap;
+    justify-content: space-around;
+    align-items: flex-end;
   }
 }
-</script>
+</style>

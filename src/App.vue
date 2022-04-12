@@ -1,142 +1,15 @@
-<template>
-  <index></index>
-</template>
+<script setup>
+import MemoIndex from "@/pages/memos/index"
+import {onBeforeMount} from 'vue'
+import {noteService} from '@/services/noteService'
 
-<script>
-import { db } from './repositories'
-import { memoRepository } from "@/repositories/memoRepository";
-import { index } from "@/pages/memos/index"
-
-export default {
-  name: 'App',
-  components: {index},
-  data() {
-    return {
-      form: {
-        memo: {
-          id: null,
-          content: null,
-          top: 0,
-          left: 0
-        }
-      },
-      memos: [],
-    }
-  },
-  methods: {
-    async createMemo() {
-      const memo = {
-        content: this.form.memo.content,
-        top: 0,
-        left: 0
-      }
-      memoRepository.create(memo)
-          .then(memoId => {
-            memo.id = memoId
-            this.memos.push(memo)
-            this.form.memo.content = ''
-            this.$refs.closeModal.click()
-          })
-          .catch(error => alert(error))
-    },
-    async putMemo(memo) {
-      try {
-        const memoId = memo.id
-        await db.memos.put({
-          id: memo.id,
-          content: memo.content,
-          top: memo.top,
-          left: memo.left
-        });
-
-        this.memos.find(memo => memo.id === memoId).content = memo.content
-        this.$refs.closeModal.click()
-      } catch (error) {
-        alert(error)
-      }
-    },
-    async deleteMemo(memo) {
-      try {
-        const memoId = memo.id
-        await db.memos.delete(memo.id)
-
-        this.memos = this.memos.filter(memo => memo.id !== memoId)
-        this.$refs.closeModal.click()
-      } catch (error) {
-        alert(error)
-      }
-    },
-    resetMemos() {
-      this.memos = []
-    },
-    resetFormMemo() {
-      this.form.memo = {
-        id: null,
-        content: null,
-        top: null,
-        left: null
-      }
-    },
-    setShowMemo(memo) {
-      this.form.memo = {
-        id: memo.id,
-        content: memo.content,
-        top: memo.top,
-        left: memo.left
-      }
-    },
-
-  },
-  created() {
-    memoRepository.all()
-        .then(memos => this.memos = memos)
-        .catch(error => alert(error))
-  }
-}
+onBeforeMount(() => {
+  noteService.getNotes().then(response => {
+    noteService.store.commit.setNotes(response)
+  })
+})
 </script>
 
-<style lang="scss">
-.container-fluid {
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-flow: column;
-  height: 100vh;
-  margin: 0;
-
-  main {
-    flex: 1;
-
-    .memo {
-      position: absolute;
-      border: 1px solid red;
-      height: 100px;
-      width: 100px;
-      cursor: grab;
-
-      &:active {
-        cursor: grabbing;
-      }
-
-      .content-box {
-        text-align: center;
-        height: 70%;
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        white-space: pre
-      }
-
-      .icon-box {
-        display: flex;
-        width: 100%;
-        height: 30%;
-        flex-flow: wrap;
-        justify-content: space-around;
-        align-items: flex-end;
-      }
-    }
-  }
-}
-</style>
+<template>
+  <MemoIndex/>
+</template>

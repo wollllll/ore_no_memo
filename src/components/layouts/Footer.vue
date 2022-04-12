@@ -1,28 +1,24 @@
-<template>
-  <footer class="row">
-    <div class="col-4 offset-4 text-center">
-      <button @click="truncateMemo()" type="button" class="btn btn-danger">全て削除</button>
-    </div>
-  </footer>
-</template>
+<script setup>
+import {noteService} from "@/services/noteService"
+import {ref} from 'vue'
 
-<script>
-import { repository } from "@/repositories";
-
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Footer',
-  methods: {
-    truncateMemo() {
-      repository.memo.truncate()
-
-      this.$emit('resetMemos');
-    },
+const notes = ref(noteService.store.getters.notes())
+const truncateNote = () => {
+  if (window.confirm('全て削除します。')) {
+    noteService.truncate()
   }
 }
 </script>
 
-<style lang="scss">
+<template>
+  <footer class="row">
+    <div v-if="notes.length" class="col-4 offset-4 text-center">
+      <button @click="truncateNote" type="button" class="btn btn-danger">全て削除</button>
+    </div>
+  </footer>
+</template>
+
+<style lang="scss" scoped>
 footer {
   margin: 12px;
 }
