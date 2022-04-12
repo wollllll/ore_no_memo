@@ -1,5 +1,5 @@
 <script setup>
-import MemoIndex from "@/pages/memos/index"
+import NoteIndex from "@/pages/notes/index"
 import {onBeforeMount} from 'vue'
 import {noteService} from '@/services/noteService'
 
@@ -11,5 +11,5 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <MemoIndex/>
+  <NoteIndex/>
 </template>

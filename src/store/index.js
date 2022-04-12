@@ -1,9 +1,9 @@
 import {createStore} from 'vuex'
-import {todo} from '@/store/todo'
+import {note} from '@/store/note'
 
 export const store = createStore({
   modules: {
-    todo,
+    note,
   }
 })
 

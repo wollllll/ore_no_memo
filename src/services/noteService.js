@@ -6,19 +6,16 @@ export const noteService = {
   getNotes() {
     return noteRepository.get()
   },
-  create(content) {
+  create(note) {
     try {
-      const note = {
-        content: content,
-        top: 0,
-        left: 0
-      }
-
-      note.id = noteRepository.create(note)
+      note.id = noteRepository.create({
+        content: note.content,
+        top: note.top,
+        left: note.left
+      })
       noteService.getNotes().then(response => {
         noteService.store.commit.setNotes(response)
       })
-      noteService.store.commit.setIsShowModal(false)
     } catch (exception) {
       alert(exception)
     }
@@ -48,24 +45,24 @@ export const noteService = {
   store: {
     getters: {
       isShowModal() {
-        return computed(() => store.getters['todo/isShowModal'])
+        return computed(() => store.getters['note/isShowModal'])
       },
       notes() {
-        return computed(() => store.getters['todo/notes'])
+        return computed(() => store.getters['note/notes'])
       },
       showNote() {
-        return computed(() => store.getters['todo/showNote'])
+        return computed(() => store.getters['note/showNote'])
       }
     },
     commit: {
       setIsShowModal(bool) {
-        store.commit('todo/setIsShowModal', bool)
+        store.commit('note/setIsShowModal', bool)
       },
       setNotes(notes) {
-        store.commit('todo/setNotes', notes)
+        store.commit('note/setNotes', notes)
       },
       setShowNote(note) {
-        store.commit('todo/setShowNote', note)
+        store.commit('note/setShowNote', note)
       }
     }
   }

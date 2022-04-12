@@ -2,15 +2,15 @@ import {db} from '@/repositories'
 
 export const noteRepository = {
   async get() {
-    return await db.memos.toArray()
+    return await db.notes.toArray()
   },
   async create(note) {
-    return await db.memos.add(note)
+    return await db.notes.add(note)
   },
   update(id, inputs) {
-    db.memos.update(id, inputs)
+    db.notes.update(id, inputs)
   },
   truncate() {
-    db.memos.clear()
+    db.notes.clear()
   }
 }

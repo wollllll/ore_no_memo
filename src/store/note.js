@@ -1,10 +1,12 @@
-export const todo = {
+export const note = {
   namespaced: true,
   state: {
     isShowModal: false,
     notes: [],
     showNote: {
-      content: null
+      content: null,
+      top: 0,
+      left: 0
     }
   },
   getters: {

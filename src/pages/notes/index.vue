@@ -31,7 +31,7 @@ const showModal = (note) => {
           @drag="dragNote($event, note)"
           @dragend="dragendNote($event, note)"
       >
-        <div class="content-box">{{ note.id }}{{ note.content }}</div>
+        <div class="content-box">{{ note.content }}</div>
         <div @click="showModal(note)" class="icon-box"><i class="bi bi-caret-down-square"></i></div>
       </li>
     </ul>
