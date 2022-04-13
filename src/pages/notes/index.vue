@@ -1,9 +1,10 @@
 <script setup>
 import Base from '@/components/layouts/Base'
 import { noteService } from '@/services/noteService'
-import { ref } from 'vue'
+import { computed } from 'vue'
 
-const notes = ref(noteService.store.getters.notes())
+const store = noteService.store
+const notes = computed(() => store.getters.notes().value)
 const dragNote = (event, note) => updatePosition(event, note)
 const dragendNote = (event, note) => {
   updatePosition(event, note)
@@ -14,8 +15,8 @@ const updatePosition = (event, note) => {
   note.left = event.pageX - 50
 }
 const showModal = (note) => {
-  noteService.store.commit.setIsShowModal(true)
-  noteService.store.commit.setShowNote(note)
+  store.commit.setIsShowModal(true)
+  store.commit.setShowNote(note)
 }
 </script>
 

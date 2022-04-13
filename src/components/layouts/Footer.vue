@@ -1,12 +1,12 @@
 <script setup>
 import { noteService } from '@/services/noteService'
-import { ref } from 'vue'
+import { computed } from 'vue'
 
-const notes = ref(noteService.store.getters.notes())
+const notes = computed(() => noteService.store.getters.notes().value)
 const truncateNote = () => {
-  if (window.confirm('全て削除しますか')) {
-    noteService.truncate()
-  }
+  if (!window.confirm('全て削除しますか')) return false
+
+  noteService.truncate()
 }
 </script>
 

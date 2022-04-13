@@ -1,36 +1,30 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { noteService } from '@/services/noteService'
 
 const store = noteService.store
-const isShowModal = ref(store.getters.isShowModal())
-const showNote = ref(store.getters.showNote())
+const showNote = computed(() => store.getters.showNote().value)
 const updateOrCreateByNote = () => {
   'id' in showNote.value
     ? noteService.update(showNote.value)
     : noteService.create(showNote.value)
-  noteService.store.commit.setIsShowModal(false)
-  noteService.store.commit.setShowNote({})
+  store.commit.setIsShowModal(false)
+  store.commit.setShowNote({})
 }
 const deleteNote = () => {
   if (window.confirm('削除しますか')) {
     noteService.delete(showNote.value)
-    noteService.store.commit.setIsShowModal(false)
+    store.commit.setIsShowModal(false)
   }
 }
 const hideModal = () => {
-  noteService.store.commit.setIsShowModal(false)
-  noteService.store.commit.setShowNote({})
+  store.commit.setIsShowModal(false)
+  store.commit.setShowNote({})
 }
-
-watchEffect(() => {
-  isShowModal.value = store.getters.isShowModal()
-  showNote.value = store.getters.showNote()
-})
 </script>
 
 <template>
-  <div v-if="isShowModal" class="modal">
+  <div class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">

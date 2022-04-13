@@ -2,6 +2,12 @@
 import Header from '@/components/layouts/Header'
 import Footer from '@/components/layouts/Footer'
 import Modal from '@/components/Modal'
+import { computed } from 'vue'
+import { noteService } from '@/services/noteService'
+
+const isShowModal = computed(
+  () => noteService.store.getters.isShowModal().value
+)
 </script>
 
 <template>
@@ -11,7 +17,7 @@ import Modal from '@/components/Modal'
       <slot></slot>
     </main>
     <Footer />
-    <Modal />
+    <Modal v-if="isShowModal" />
   </div>
 </template>
 
