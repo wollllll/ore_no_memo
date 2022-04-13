@@ -23,22 +23,26 @@ export const noteRepository = {
    *
    * @param id
    * @param inputs
+   * @returns {Promise<void>}
    */
-  update(id, inputs) {
-    db.notes.update(id, inputs)
+  async update(id, inputs) {
+    await db.notes.update(id, inputs)
   },
   /**
    * 削除
    *
    * @param id
+   * @returns {Promise<void>}
    */
-  delete(id) {
-    db.notes.delete(id)
+  async delete(id) {
+    await db.notes.delete(id)
   },
   /**
    * 全削除
+   *
+   * @returns {Promise<void>}
    */
-  truncate() {
-    db.notes.clear()
+  async truncate() {
+    await db.notes.clear()
   },
 }

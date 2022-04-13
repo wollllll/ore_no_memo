@@ -1,6 +1,7 @@
 import { store } from '@/store'
 import { noteRepository } from '@/repositories/noteRepository'
 import { computed } from 'vue'
+import { db, mode } from '@/repositories'
 
 export const noteService = {
   /**
@@ -18,14 +19,19 @@ export const noteService = {
    */
   create(note) {
     try {
-      note.id = noteRepository.create({
-        content: note.content,
-        top: 0,
-        left: 0,
+      db.transaction(mode, db.notes, () => {
+        note.id = noteRepository.create({
+          content: note.content,
+          top: 0,
+          left: 0,
+        })
       })
-      noteService
-        .getNotes()
-        .then((response) => noteService.store.commit.setNotes(response))
+        .then(() => {
+          noteService
+            .getNotes()
+            .then((response) => noteService.store.commit.setNotes(response))
+            .catch((error) => alert(error))
+        })
         .catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
@@ -38,11 +44,15 @@ export const noteService = {
    */
   update(note) {
     try {
-      noteRepository.update(note.id, {
-        content: note.content,
-        top: note.top,
-        left: note.left,
-      })
+      db.transaction(mode, db.notes, () => {
+        noteRepository
+          .update(note.id, {
+            content: note.content,
+            top: note.top,
+            left: note.left,
+          })
+          .catch((error) => alert(error))
+      }).catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
     }
@@ -54,10 +64,15 @@ export const noteService = {
    */
   delete(note) {
     try {
-      noteRepository.delete(note.id)
-      noteService
-        .getNotes()
-        .then((response) => noteService.store.commit.setNotes(response))
+      db.transaction(mode, db.notes, () => {
+        noteRepository.delete(note.id).catch((error) => alert(error))
+      })
+        .then(() => {
+          noteService
+            .getNotes()
+            .then((response) => noteService.store.commit.setNotes(response))
+            .catch((error) => alert(error))
+        })
         .catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
@@ -68,11 +83,15 @@ export const noteService = {
    */
   truncate() {
     try {
-      noteRepository.truncate()
-
-      noteService
-        .getNotes()
-        .then((response) => noteService.store.commit.setNotes(response))
+      db.transaction(mode, db.notes, () => {
+        noteRepository.truncate().catch((error) => alert(error))
+      })
+        .then(() => {
+          noteService
+            .getNotes()
+            .then((response) => noteService.store.commit.setNotes(response))
+            .catch((error) => alert(error))
+        })
         .catch((error) => alert(error))
     } catch (exception) {
       alert(exception)
