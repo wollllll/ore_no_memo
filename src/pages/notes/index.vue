@@ -1,7 +1,8 @@
 <script setup>
-import Base from '@/components/layouts/Base'
 import { noteService } from '@/services/noteService'
 import { computed } from 'vue'
+
+import Base from '@/components/layouts/Base'
 
 const store = noteService.store
 const notes = computed(() => store.getters.notes().value)
@@ -26,50 +27,22 @@ const showModal = (note) => {
       <li
         :key="note.id"
         v-for="note in notes"
-        class="note card"
         draggable="true"
+        class="absolute w-32 h-32 rounded shadow cursor-move"
         :style="{ top: `${note.top}px`, left: `${note.left}px` }"
         @drag="dragNote($event, note)"
         @dragend="dragendNote($event, note)"
       >
-        <div class="content-box">{{ note.content }}</div>
-        <div @click="showModal(note)" class="icon-box">
-          <i class="bi bi-caret-down-square"></i>
+        <div class="w-100 h-3/4 overflow-hidden">
+          {{ note.content }}
+        </div>
+        <div class="w-100 h-1/4 flex flex-wrap content-around justify-center">
+          <i
+            @click="showModal(note)"
+            class="cursor-pointer text-gray-800 bi bi-caret-down-square"
+          ></i>
         </div>
       </li>
     </ul>
   </Base>
 </template>
-
-<style lang="scss" scoped>
-.note {
-  position: absolute;
-  border: 1px solid red;
-  height: 100px;
-  width: 100px;
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-  }
-
-  .content-box {
-    text-align: center;
-    height: 70%;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    white-space: pre;
-  }
-
-  .icon-box {
-    display: flex;
-    width: 100%;
-    height: 30%;
-    flex-flow: wrap;
-    justify-content: space-around;
-    align-items: flex-end;
-  }
-}
-</style>

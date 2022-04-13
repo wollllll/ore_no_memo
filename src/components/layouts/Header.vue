@@ -1,7 +1,10 @@
 <script setup>
-import Modal from '@/components/Modal'
 import { noteService } from '@/services/noteService'
 import { computed } from 'vue'
+
+import Modal from '@/components/Modal'
+import PrimaryButton from '@/components/PrimaryButton'
+import DangerButton from '@/components/DangerButton'
 
 const store = noteService.store
 const showNote = computed(() => store.getters.showNote().value)
@@ -27,67 +30,46 @@ const deleteNote = () => {
 
 <template>
   <header>
-    <div class="row">
-      <div class="col-4 offset-4">
-        <h1 class="title">俺のメモ</h1>
+    <div class="grid grid-cols-12">
+      <div class="col-span-4 col-start-5">
+        <h1 class="text-3xl font-bold underline text-center">
+          &nbsp;俺のメモ&nbsp;
+        </h1>
       </div>
-      <div class="col-4 btn-create-note">
-        <button class="btn btn-primary" @click="showModal()">+</button>
+      <div class="col-span-4 text-right">
+        <PrimaryButton class="py-1.5 px-2.5" @click="showModal()">
+          <i class="bi bi-plus text-xl"></i>
+        </PrimaryButton>
       </div>
     </div>
     <Modal v-if="isShowModal">
-      <template #title>{{
-        showNote.id ? 'メモの更新' : 'メモの保存'
-      }}</template>
+      <template #title
+        >{{ showNote.id ? 'メモの更新' : 'メモの作成' }}
+      </template>
       <template #body>
         <textarea
           v-model="showNote.content"
           name="content"
           rows="10"
-          class="form-control"
+          class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
         >
         </textarea>
       </template>
       <template #footer>
-        <template v-if="'id' in showNote">
-          <button type="button" class="btn btn-danger" @click="deleteNote()">
-            削除
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="updateOrCreateByNote()"
-          >
-            更新
-          </button>
+        <template v-if="showNote.id">
+          <div class="ml-auto">
+            <DangerButton @click="deleteNote()"> 削除 </DangerButton>
+            <PrimaryButton class="ml-2" @click="updateOrCreateByNote()">
+              更新
+            </PrimaryButton>
+          </div>
         </template>
         <template v-else>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="updateOrCreateByNote()"
-          >
-            保存
-          </button>
+          <PrimaryButton class="ml-auto" @click="updateOrCreateByNote()">
+            作成
+          </PrimaryButton>
         </template>
       </template>
     </Modal>
   </header>
 </template>
-
-<style lang="scss" scoped>
-header {
-  .title {
-    text-align: center;
-    font-size: 32px;
-  }
-
-  .btn-create-note {
-    text-align: right;
-  }
-
-  .form-control {
-    height: 100%;
-  }
-}
-</style>
