@@ -6,23 +6,21 @@ const store = noteService.store
 const isShowModal = ref(store.getters.isShowModal())
 const showNote = ref(store.getters.showNote())
 const updateOrCreateByNote = () => {
-  const resetShowMemo = {
-    content: null,
-    top: 0,
-    left: 0,
-  }
-
   'id' in showNote.value
     ? noteService.update(showNote.value)
     : noteService.create(showNote.value)
   noteService.store.commit.setIsShowModal(false)
-  noteService.store.commit.setShowNote(resetShowMemo)
+  noteService.store.commit.setShowNote({})
 }
 const deleteNote = () => {
   if (window.confirm('削除しますか')) {
     noteService.delete(showNote.value)
     noteService.store.commit.setIsShowModal(false)
   }
+}
+const hideModal = () => {
+  noteService.store.commit.setIsShowModal(false)
+  noteService.store.commit.setShowNote({})
 }
 
 watchEffect(() => {
@@ -39,7 +37,7 @@ watchEffect(() => {
           {{ 'id' in showNote ? 'メモの更新' : 'メモの保存' }}
         </h5>
         <button
-          @click="noteService.store.commit.setIsShowModal(false)"
+          @click="hideModal()"
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"

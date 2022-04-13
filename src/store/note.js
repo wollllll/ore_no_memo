@@ -3,11 +3,7 @@ export const note = {
   state: {
     isShowModal: false,
     notes: [],
-    showNote: {
-      content: null,
-      top: 0,
-      left: 0,
-    },
+    showNote: {},
   },
   getters: {
     isShowModal: (state) => state.isShowModal,
