@@ -28,7 +28,7 @@ const showModal = (note) => {
         :key="note.id"
         v-for="note in notes"
         draggable="true"
-        class="absolute w-32 h-32 rounded shadow cursor-move"
+        class="absolute w-32 h-32 p-2 rounded shadow cursor-move"
         :style="{ top: `${note.top}px`, left: `${note.left}px` }"
         @drag="dragNote($event, note)"
         @dragend="dragendNote($event, note)"
