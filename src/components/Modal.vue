@@ -16,7 +16,7 @@ import { noteService } from '@/services/noteService'
         <button
           @click="noteService.store.commit.setIsShowModal(false)"
           type="button"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm py-1.5 px-2.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm py-1 px-2 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-toggle="medium-modal"
         >
           <i class="text-lg bi bi-x"></i>
