@@ -10,11 +10,11 @@ import { noteService } from '@/services/noteService'
           <slot name="title" />
         </h5>
         <button
-          @click="noteService.store.commit.setIsShowModal(false)"
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          @click="noteService.store.commit.setIsShowModal(false)"
         ></button>
       </div>
       <div class="modal-body">

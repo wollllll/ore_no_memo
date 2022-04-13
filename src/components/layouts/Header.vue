@@ -32,7 +32,7 @@ const deleteNote = () => {
         <h1 class="title">俺のメモ</h1>
       </div>
       <div class="col-4 btn-create-note">
-        <button @click="showModal()" class="btn btn-primary">+</button>
+        <button class="btn btn-primary" @click="showModal()">+</button>
       </div>
     </div>
     <Modal v-if="isShowModal">
@@ -50,22 +50,22 @@ const deleteNote = () => {
       </template>
       <template #footer>
         <template v-if="'id' in showNote">
-          <button @click="deleteNote()" type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" @click="deleteNote()">
             削除
           </button>
           <button
-            @click="updateOrCreateByNote()"
             type="button"
             class="btn btn-primary"
+            @click="updateOrCreateByNote()"
           >
             更新
           </button>
         </template>
         <template v-else>
           <button
-            @click="updateOrCreateByNote()"
             type="button"
             class="btn btn-primary"
+            @click="updateOrCreateByNote()"
           >
             保存
           </button>

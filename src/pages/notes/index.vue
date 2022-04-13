@@ -24,10 +24,10 @@ const showModal = (note) => {
   <Base>
     <ul>
       <li
-        class="note card"
-        draggable="true"
         :key="note.id"
         v-for="note in notes"
+        class="note card"
+        draggable="true"
         :style="{ top: `${note.top}px`, left: `${note.left}px` }"
         @drag="dragNote($event, note)"
         @dragend="dragendNote($event, note)"

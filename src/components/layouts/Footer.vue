@@ -13,7 +13,7 @@ const truncateNote = () => {
 <template>
   <footer class="row">
     <div v-if="notes.length" class="col-4 offset-4 text-center">
-      <button @click="truncateNote" type="button" class="btn btn-danger">
+      <button type="button" class="btn btn-danger" @click="truncateNote">
         全て削除
       </button>
     </div>
