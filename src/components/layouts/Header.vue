@@ -51,7 +51,7 @@ const deleteNote = () => {
         <textarea
           v-model="showNote.content"
           name="content"
-          class="shadow border rounded w-full h-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+          class="shadow border rounded w-full h-full py-2 px-3 focus:outline-none focus:shadow-outline"
         >
         </textarea>
       </template>
