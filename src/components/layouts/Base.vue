@@ -4,9 +4,9 @@ import Footer from '@/components/layouts/Footer'
 </script>
 
 <template>
-  <div class="base-container">
+  <div class="relative flex h-screen p-3 col-1 flex-col">
     <Header />
-    <main>
+    <main class="flex-1">
       <slot></slot>
     </main>
     <Footer />

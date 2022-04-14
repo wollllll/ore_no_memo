@@ -9,6 +9,7 @@ import DangerButton from '@/components/DangerButton'
 const store = noteService.store
 const showNote = computed(() => store.getters.showNote().value)
 const isShowModal = computed(() => store.getters.isShowModal().value)
+
 const showModal = () => {
   store.commit.setIsShowModal(true)
   store.commit.setShowNote({})
@@ -50,8 +51,7 @@ const deleteNote = () => {
         <textarea
           v-model="showNote.content"
           name="content"
-          rows="10"
-          class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+          class="shadow border rounded w-full h-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
         >
         </textarea>
       </template>

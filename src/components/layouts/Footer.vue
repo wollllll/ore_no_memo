@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import DangerButton from '@/components/DangerButton'
 
 const notes = computed(() => noteService.store.getters.notes().value)
+
 const truncateNote = () => {
   if (!window.confirm('全て削除しますか')) return false
 

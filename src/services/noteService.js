@@ -22,8 +22,8 @@ export const noteService = {
       db.transaction(mode, db.notes, () => {
         note.id = noteRepository.create({
           content: note.content,
-          top: 0,
-          left: 0,
+          top: 10,
+          left: 10,
         })
       })
         .then(() => {
