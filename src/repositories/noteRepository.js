@@ -10,6 +10,15 @@ export const noteRepository = {
     return await db.notes.toArray()
   },
   /**
+   * idをもとに取得
+   *
+   * @param id
+   * @returns {Promise<*>}
+   */
+  async find(id) {
+    return await db.notes.get({ id: id })
+  },
+  /**
    * 保存
    *
    * @param note

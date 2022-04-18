@@ -13,6 +13,15 @@ export const noteService = {
     return noteRepository.get()
   },
   /**
+   * idをもとにメモを取得
+   *
+   * @param id
+   * @returns {Promise<*>}
+   */
+  findByNoteId(id) {
+    return noteRepository.find(id)
+  },
+  /**
    * メモの作成
    *
    * @param note
