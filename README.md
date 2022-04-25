@@ -1,4 +1,4 @@
-# zatsu_memo
+# ore_no_memo
 
 ## Project setup
 ```
